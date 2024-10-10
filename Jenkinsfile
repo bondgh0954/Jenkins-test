@@ -2,7 +2,7 @@ pipeline {
 
     agent any
     tools{
-        maven "maven"
+        maven 'maven'
     }
 
     stages{
@@ -11,10 +11,10 @@ pipeline {
             steps{
                 script{
                     echo 'incrementing application version.........'
-                    sh "mvn build-helper:parse-version versions:set \
+                    sh 'mvn build-helper:parse-version versions:set \
                        -Dnewversion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
-                       versions:commit"
-                    def matcher = readfile('pom.xml')=~ '<version>(.+)</version>'
+                       versions:commit'
+                    def matcher = readfile('pom.xml') =~ '<version>(.+)</version>'
                     def version = matcher[0][1]
                     env.IMAGE_NAME = "$version-$BUILD_NUMBER"
 
