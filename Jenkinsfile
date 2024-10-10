@@ -48,5 +48,26 @@ pipeline {
                 }
             }
         }
+
+        stage('commit changes'){
+            steps{
+                script{
+                    echo "commiting changes back to the git repo..."
+                    withCredentials([usernamePassword(credentialsId: "github-credentials", usernameVariable: "USER", passwordVariable: "PASS")]){
+                        
+                        sh 'git config user.email "jenkins@example.com"'
+                        sh 'git config user.name "jenkins"'
+                        sh 'git status'
+                        sh 'git branch'
+                        sh 'git config --list'
+                        sh "git remote set-url origin https://${USER}:${PASS}@github.com/bondgh0954/Jenkins-test.git"
+                        sh 'git add .'
+                        sh 'git commit -m "commit version increment update"'
+                        sh 'git push origin HEAD:main'
+                    }
+                     
+                }
+            }
+        }
     }
 }
