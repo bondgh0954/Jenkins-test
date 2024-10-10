@@ -55,8 +55,8 @@ pipeline {
                     echo "commiting changes back to the git repo..."
                     withCredentials([usernamePassword(credentialsId: "github-credentials", usernameVariable: "USER", passwordVariable: "PASS")]){
                         
-                        sh 'git config user.email "jenkins@example.com"'
-                        sh 'git config user.name "jenkins"'
+                        sh 'git config --global user.email "jenkins@example.com"'
+                        sh 'git config --global user.name "jenkins"'
                         sh 'git status'
                         sh 'git branch'
                         sh 'git config --list'
